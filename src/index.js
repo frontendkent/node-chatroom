@@ -4,7 +4,6 @@
 var express = require('express');
 var consolidate = require('consolidate'); 
 var sass = require('node-sass');
-var minify = require('node-minify');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var moment = require('moment');
