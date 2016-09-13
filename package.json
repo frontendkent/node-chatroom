@@ -6,7 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "git": "https://github.com/internetexplorers/node-chatroom.git",
+  "git": "git://github.com/internetexplorers/node-chatroom.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/internetexplorers/node-chatroom.git"
+  },
+  "license": "MIT",
   "author": "James Michael Maltby <jamesmaltby@me.com> (https://github.com/internetexplorers)",
   "private": false,
   "dependencies": {
