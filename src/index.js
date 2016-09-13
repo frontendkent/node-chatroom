@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.engine('shtml', consolidate.swig);
 app.set('view engine', 'shtml');
-app.set('views', __dirname + '/ui/views');
+app.set('views', './ui/views');
 
 app.use( express.static('./ui/public') );
 
@@ -34,7 +34,7 @@ app.use( express.static('./ui/public') );
 /* ****** Routes ****** */
 
 app.get('/css/styleguide.css', function( req, res ) {
-	var filename = __dirname + '/ui/scss/styleguide.scss';
+	var filename = './ui/scss/styleguide.scss';
 	sass.render({
 	  file: filename,
 	}, function(err, result) { 
@@ -43,7 +43,7 @@ app.get('/css/styleguide.css', function( req, res ) {
 	});
 });
 
-fs.existsSync(__dirname + '/ui/public/app.js') && fs.unlinkSync(__dirname + '/ui/public/app.js');
+fs.existsSync( './ui/public/app.js') && fs.unlinkSync( './ui/public/app.js');
 app.get('/js/app.js', function( req, res, next ) {
 	fs.readFile('./ui/js/app.json', function(err,data) {
 			if(err) return next();
