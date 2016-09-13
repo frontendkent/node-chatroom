@@ -44,7 +44,7 @@ app.get('/css/styleguide.css', function( req, res ) {
 });
 
 
-fs.existsSync( './ui/public/js/app.js') && fs.unlinkSync( './ui/public/js/app.js');
+if(process.argv[2]===undefined) fs.existsSync( './ui/public/js/app.js') && fs.unlinkSync( './ui/public/js/app.js');
 app.get('/js/app.js', function( req, res, next ) {
 	fs.readFile('./ui/js/app.json', function(err,data) {
 			if(err) return next();
@@ -63,12 +63,10 @@ app.get('/js/app.js', function( req, res, next ) {
 });
 
 app.get('/', function( req, res ) {
-
 	res.render( 'page' , {
 		ip: req.ip,
 		messages : JSON.stringify(messages)
 	});
-
 });
 
 
