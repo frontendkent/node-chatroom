@@ -8,6 +8,7 @@ var minify = require('node-minify');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var moment = require('moment');
+var session = require('express-session')
 
 /* ****** Variables ****** */
 
@@ -18,6 +19,14 @@ var io = require('socket.io')(server);
 
 
 /* ****** Middleware ****** */
+
+app.set('trust proxy', 1) // trust first proxy 
+app.use(session({
+  secret: '1nt3rn3t3xpl0r3r%',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 app.use(bodyParser.urlencoded( { extended: true } ));
 app.use(bodyParser.json());
@@ -64,7 +73,7 @@ app.get('/js/app.js', function( req, res, next ) {
 
 app.get('/', function( req, res ) {
 	res.render( 'page' , {
-		ip: req.ip,
+		ip: req.sessionID,
 		messages : JSON.stringify(messages)
 	});
 });
