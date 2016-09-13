@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Internet Explorers' Chat Room</title>
+		<link rel="stylesheet" type="text/css" href="/css/styleguide.css">
+
+		<script type="text/javascript" src="/js/lib/moment.js"></script>
+		<script type="text/javascript" src="/js/app.js"></script>
+	</head>
+	<body>
+		<h1 class="title">Internet Explorers' Chat Room</h1>
+		<form id='id-chat__form' action="/message" method="post" class="chat__form">
+			<input id='id-chat__form-message'  type="text" name="message" class="chat__form_message" autocomplete="off"/>
+			<input type="submit" value="Post" class="chat__form_submit"/> 
+		</form>
+
+		<ul id='id-chat' class="chat__container">
+		</ul>
+
+	</body>
+	<script>
+	{% autoescape false %}
+	chatroom( {{json}} );
+	{% endautoescape %}
+	</script>
+</html>

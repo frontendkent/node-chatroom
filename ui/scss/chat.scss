@@ -1,0 +1,49 @@
+
+.chat__post--animate {
+	animation: postAnimation 0.25s linear;
+}
+
+.chat__container {
+	margin: 0 auto 2em auto;
+	padding:2em 0 2em 0;
+	background-color: white;
+	max-width:800px;
+	overflow: auto;
+} 
+
+.chat__post {
+	border-radius: 16px;
+	padding:0.5em 1em 0.5em 1em;
+	list-style: none;
+	margin:0.5em 0 0.5em 0;
+	width:66.6%;
+	float:left;
+	box-shadow: 0 0 4px rgba(64,64,64,0.25);
+	background-color: #eee;
+	color:#444;
+}
+
+.chat__post--me {
+	float:right;
+	background-color: rgb(86,162,243);
+	color:#fff;
+}
+
+.chat__datetime {
+	float:right;
+	font-size: 8pt;
+}
+
+.chat__user{
+	font-weight:700;
+	float:left;
+	font-size: 8pt;
+}
+
+.chat__message{
+	font-weight:400;
+	float:left;
+	clear:left;
+	font-size: 11pt;
+	margin:0.5em 0 0.5em 0;
+}
