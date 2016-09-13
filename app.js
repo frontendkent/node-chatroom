@@ -1,4 +1,2 @@
 
-var fs = require('fs');
-
-require('./src/index');
+require('./src/');
