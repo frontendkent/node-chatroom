@@ -9,11 +9,11 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var moment = require('moment');
 
-
 /* ****** Variables ****** */
 
 var app = express();
-var messages = [];
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
 
 
@@ -43,7 +43,8 @@ app.get('/css/styleguide.css', function( req, res ) {
 	});
 });
 
-fs.existsSync( './ui/public/app.js') && fs.unlinkSync( './ui/public/app.js');
+
+fs.existsSync( './ui/public/js/app.js') && fs.unlinkSync( './ui/public/js/app.js');
 app.get('/js/app.js', function( req, res, next ) {
 	fs.readFile('./ui/js/app.json', function(err,data) {
 			if(err) return next();
@@ -61,39 +62,43 @@ app.get('/js/app.js', function( req, res, next ) {
 		});
 });
 
-app.post('/api/messages', function( req, res ) {
-	if(req.body.message) {
-		messages.unshift( {
-			user: req.ip, 
-			message: req.body.message,
-			datetime: moment()
-		} );
-		if(req.xhr || req.body.ajax) res.send( messages );
-		else res.redirect('/');
-	} else {
-		if(req.xhr || req.body.ajax) res.status(500).send("Invalid body");
-		else res.redirect('/');
-	}
-});
-
-app.get('/api/messages', function( req, res ) {
-	res.send( messages );
-});
-
-
 app.get('/', function( req, res ) {
-	var json = {
-		me: req.ip,
-		messages : messages
-	};
 
 	res.render( 'page' , {
-		page: req.params.page,
-		datetime: new Date().toString(),
-		json: JSON.stringify(json)
+		ip: req.ip,
+		messages : JSON.stringify(messages)
 	});
+
 });
 
+
+
+/* ****** Sockets ****** */
+
+var messages = [];
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  socket.on('join', function(data) {
+  	socket.emit('welcome',messages);
+  });
+});
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log(msg);
+    var json = {
+    	message: msg.message,
+    	user: msg.user,
+    	datetime: moment()
+    }
+    messages.push(json);
+    io.emit('chat message', json);
+  });
+});
 
 
 
@@ -101,5 +106,5 @@ app.get('/', function( req, res ) {
 /* ****** Server ****** */
 
 var port = process.argv[2] || 8080;
-app.listen(port);
+server.listen(port);
 

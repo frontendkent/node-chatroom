@@ -12,6 +12,7 @@
 } 
 
 .chat__post {
+	box-sizing:border-box;
 	border-radius: 16px;
 	padding:0.5em 1em 0.5em 1em;
 	list-style: none;
@@ -46,4 +47,10 @@
 	clear:left;
 	font-size: 11pt;
 	margin:0.5em 0 0.5em 0;
+}
+.chat__form_message {
+	width:40%;
+}
+.chat__form_message:focus {
+	outline:none;
 }
