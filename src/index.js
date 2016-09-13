@@ -53,24 +53,6 @@ app.get('/css/styleguide.css', function( req, res ) {
 });
 
 
-if(process.argv[2]===undefined) fs.existsSync( './ui/public/js/app.js') && fs.unlinkSync( './ui/public/js/app.js');
-app.get('/js/app.js', function( req, res, next ) {
-	fs.readFile('./ui/js/app.json', function(err,data) {
-			if(err) return next();
-			var json = JSON.parse( data.toString() );
-			for(i in json) json[i] = './ui/js/' + json[i];
-				new minify.minify({
-				  type: 'yui-js',
-				  fileIn: json,
-				  fileOut:'./ui/public/js/app.js',
-				  callback: function(err, min){
-				  	res.setHeader("content-type", "text/javascript");
-				  	res.send(min);
-				  }
-				});	
-		});
-});
-
 app.get('/', function( req, res ) {
 	res.render( 'page' , {
 		ip: req.sessionID,
